@@ -1,5 +1,6 @@
 // import functions and grab DOM elements
 import { renderGame } from './render-utils.js';
+import { renderTeam } from './render-utils.js';
 const currentGameEl = document.getElementById('current-game-container');
 const pastGamesEl = document.getElementById('past-games-container');
 
@@ -25,16 +26,22 @@ const pastGamesArr = [];
 
 nameFormButton.addEventListener('click', () => {
     // get the name data from the form
-    teamOneName.textContent = teamOneLabel.value;
-    teamTwoName.textContent = teamTwoLabel.value;
+    name1 = teamOneLabel.value;
+    name2 = teamTwoLabel.value;
     
 
 
     // set the state to this data from the form
-
+    teamOneName.textContent = name1
+    teamTwoName.textContent = name2
     // reset the form values
+    teamOneLabel.value = '';
+    teamTwoLabel.value = '';
 
     // refresh the current game element with new data by calling the appropriate function
+    refreshCurrentGameEl();
+
+    console.log(name1, name2)
 });
 
 
@@ -42,24 +49,28 @@ teamOneAddButton.addEventListener('click', () => {
     // increment the current state for team one's score
     score1++;
     // refresh the current game element with new data by calling the appropriate function
+    refreshCurrentGameEl();
 });
 
 teamTwoAddButton.addEventListener('click', () => {
     // increment the current state for team two's score
-
+    score2++;
     // refresh the current game element with new data by calling the appropriate function
+    refreshCurrentGameEl();
 });
 
 teamOneSubtractButton.addEventListener('click', () => {
     // decrement the current state for team one's score
-
+    score1--;
     // refresh the current game element with new data by calling the appropriate function
+    refreshCurrentGameEl();
 });
 
 teamTwoSubtractButton.addEventListener('click', () => {
     // decrement the current state for team two's score
-
+    score2--;
     // refresh the current game element with new data by calling the appropriate function
+    refreshCurrentGameEl();
 });
 
 finishGameButton.addEventListener('click', () => {
@@ -83,7 +94,7 @@ function refreshCurrentGameEl() {
     teamOneLabel.textContent = name1;
     teamTwoLabel.textContent = name2;
 
-    // const gameEl = . . . 
+    const gameEl = renderGame(name1, name2, score1, score2);
     // make a new gameEl here by calling renderGame with the approriate arguments. 
     // Check the renderGame function declaration in render-utils.js to figure out the correct arguments to pass to this function 
     // In render-utils.js as yourself: How many arguments does the function take? What order does it take them in?
